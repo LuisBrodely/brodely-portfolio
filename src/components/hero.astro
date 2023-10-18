@@ -1,0 +1,38 @@
+---
+import Link from "@components/ui/link.astro";
+import { Icon } from "astro-icon";
+---
+
+<main
+  class="grid lg:grid-cols-1 place-items-center pt-16 pb-8 md:pt-20 md:pb-24">
+  <div class="flex flex-col items-center">
+    <h1
+      class="text-5xl lg:text-6xl xl:text-7xl font-bold lg:tracking-tight xl:tracking-tighter text-white text-center max-w-2xl">
+      <span class="text-[#3ECEAB]">Diseño</span> Experiencias para <span class="text-[#EFB7B7]">Hu</span><span class="text-[#BD735C]">ma</span><span class="text-[#CBAB8E]">nos</span>.
+    </h1>
+    <p class="text-lg mt-6 text-gray-200 max-w-xl text-center">
+      Ingeniero en software especializado en desarrollar y diseñar experiencias
+      digitales excepcionales. Diseñador UX/UI.
+    </p>
+    <div class="mt-8 flex sm:flex-row gap-3">
+      <Link
+        href="#"
+        href="https://web3templates.com/templates/astroship-starter-website-template-for-astro"
+        target="_blank"
+        class="flex gap-1 items-center justify-center bg-[#3ECEAB]"
+        rel="noopener">
+        <Icon class="text-white w-5 h-5" name="bx:bxs-cloud-download" />
+        Comenzar
+      </Link>
+      <Link
+        size="lg"
+        rel="noopener"
+        href="https://github.com/surjithctly/astroship"
+        class="flex gap-1 items-center justify-center"
+        target="_blank">
+        <Icon class="text-white w-4 h-4" name="bx:bxl-github" />
+        GitHub Repo
+      </Link>
+    </div>
+  </div>
+</main>

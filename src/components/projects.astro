@@ -1,0 +1,42 @@
+---
+// @ts-ignore
+const features = [
+  {
+    title: "Bring Your Own Framework",
+    description:
+      "Build your site using React, Svelte, Vue, Preact, web components, or just plain ol' HTML + JavaScript.",
+    icon: "bx:bxs-briefcase",
+  },
+  {
+    title: "100% Static HTML, No JS",
+    description:
+      "Astro renders your entire page to static HTML, removing all JavaScript from your final build by default.",
+    icon: "bx:bxs-window-alt",
+  },
+  {
+    title: "On-Demand Components",
+    description:
+      "Need some JS? Astro can automatically hydrate interactive components when they become visible on the page.  ",
+    icon: "bx:bxs-data",
+  },
+  {
+    title: "Broad Integration",
+    description:
+      "Astro supports TypeScript, Scoped CSS, CSS Modules, Sass, Tailwind, Markdown, MDX, and any other npm packages.",
+    icon: "bx:bxs-bot",
+  },
+];
+---
+
+<div class="grid sm:grid-cols-2 mt-16 gap-8 mb-24">
+  {
+    features.map((item) => (
+      <div class="bg-black rounded-md h-[500px]">
+        <div>
+          <h3 class="font-semibold text-lg text-gray-100">{item.title}</h3>{" "}
+          <p class="text-gray-300 mt-2 leading-relaxed">{item.description}</p>
+        </div>
+      </div>
+    ))
+  }
+</div>
