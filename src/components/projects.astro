@@ -1,42 +1,61 @@
 ---
-// @ts-ignore
-const features = [
-  {
-    title: "Bring Your Own Framework",
-    description:
-      "Build your site using React, Svelte, Vue, Preact, web components, or just plain ol' HTML + JavaScript.",
-    icon: "bx:bxs-briefcase",
-  },
-  {
-    title: "100% Static HTML, No JS",
-    description:
-      "Astro renders your entire page to static HTML, removing all JavaScript from your final build by default.",
-    icon: "bx:bxs-window-alt",
-  },
-  {
-    title: "On-Demand Components",
-    description:
-      "Need some JS? Astro can automatically hydrate interactive components when they become visible on the page.  ",
-    icon: "bx:bxs-data",
-  },
-  {
-    title: "Broad Integration",
-    description:
-      "Astro supports TypeScript, Scoped CSS, CSS Modules, Sass, Tailwind, Markdown, MDX, and any other npm packages.",
-    icon: "bx:bxs-bot",
-  },
-];
+import { getCollection } from "astro:content";
+import { Picture } from "@astrojs/image/components";
+
+// Filter blog entries with 'draft: false' & date before current date
+const publishedBlogEntries = await getCollection("blog", ({ data }) => {
+  return !data.draft && data.publishDate < new Date();
+});
+
+// Sort content entries by publication date
+publishedBlogEntries.sort(function (a, b) {
+  return b.data.publishDate.valueOf() - a.data.publishDate.valueOf();
+});
 ---
 
-<div class="grid sm:grid-cols-2 mt-16 gap-8 mb-24">
-  {
-    features.map((item) => (
-      <div class="bg-black rounded-md h-[500px]">
-        <div>
-          <h3 class="font-semibold text-lg text-gray-100">{item.title}</h3>{" "}
-          <p class="text-gray-300 mt-2 leading-relaxed">{item.description}</p>
-        </div>
-      </div>
-    ))
-  }
-</div>
+<main class="mt-8 mb-24">
+  <ul class="grid gap-10 mx-auto grid-cols-1 md:grid-cols-2">
+    {
+      publishedBlogEntries.map((blogPostEntry, index) => (
+        <li>
+          <a href={`/blog/${blogPostEntry.slug}`}>
+            <div class="grid md:grid-cols-1 gap-5 md:gap-10 items-center">
+              <Picture
+                src={blogPostEntry.data.image.src}
+                alt={blogPostEntry.data.image.alt}
+                sizes="(max-width: 800px) 100vw, 800px"
+                widths={[200, 400, 800]}
+                aspectRatio="16:9"
+                background="#ffffff"
+                fit="cover"
+                position="center"
+                loading={index <= 2 ? "eager" : "lazy"}
+                decoding={index <= 2 ? "sync" : "async"}
+                class="w-full rounded-md"
+              />
+              <div>
+                <span class="text-[#3ECEAB] uppercase tracking-wider text-sm font-medium">
+                  {blogPostEntry.data.category}
+                </span>
+
+                <h2 class="text-2xl md:text-2xl font-semibold leading-snug tracking-tight mt-1 text-white">
+                  {blogPostEntry.data.title}
+                </h2>
+
+                <div class="flex gap-2 mt-3">
+                  <span class="text-gray-300">{blogPostEntry.data.author}</span>
+                  <span class="text-gray-300">• </span>
+                  <time
+                    class="text-gray-300"
+                    datetime={blogPostEntry.data.publishDate.toISOString()}>
+                    {blogPostEntry.data.publishDate.toDateString()}
+                  </time>
+                </div>
+              </div>
+            </div>
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</main>
